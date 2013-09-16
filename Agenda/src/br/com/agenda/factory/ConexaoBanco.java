@@ -1,4 +1,4 @@
-package agenda.db;
+package br.com.agenda.factory;
 
 import java.sql.*;
 

@@ -1,6 +1,6 @@
-package agenda.db;
+package br.com.agenda.factory;
 
-import agenda.db.ConexaoBanco;
+import br.com.agenda.factory.ConexaoBanco;
 
 import java.io.IOException;
 import java.io.PrintWriter;
