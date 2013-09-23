@@ -1,6 +1,9 @@
 package br.com.agenda.model;
 
-public final class Cliente {
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public final class Agenda {
 
 	private Integer id;
 	private String nome;
@@ -47,7 +50,7 @@ public final class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Agenda other = (Agenda) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

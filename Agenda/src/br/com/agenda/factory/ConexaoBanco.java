@@ -4,34 +4,47 @@ import java.sql.*;
 
 public class ConexaoBanco {
 
-	public static Connection AbrirConexao() throws SQLException, Exception{
-		String banco = "agenda";
-		String usuario = "postgres";
-		String senha = "postgres";
-		String driver = "org.postgresql.Driver";
-		String url = "jdbc:postgresql://localhost:5432/";
-		Connection conn = null;
+	private static final String banco = "agenda";
+	private static final String usuario = "postgres";
+	private static final String senha = "postgres";
+	private static final String driver = "org.postgresql.Driver";
+	private static final String url = "jdbc:postgresql://localhost:5432/";
+	
+	
+	
+	public Connection AbrirConexao() {
 		
+		Connection conexao = null;
+		try{
+			
 		Class.forName(driver);
+		conexao = (Connection)DriverManager.getConnection(url+ banco,usuario,senha);
+		if(conexao != null)
+			System.out.println("Conectou!");
 		
-		conn = (Connection)DriverManager.getConnection(url+ banco,usuario,senha);
+		}catch(Exception e){
+			System.out.println("Erro na conexao com o banco");
+			e.printStackTrace();
 		
-		return conn;
 	}
-	 public static ResultSet executeQuery(Connection conn, String query) throws SQLException {
-	        Statement sta = conn.createStatement();
-	        ResultSet rs = null;
-
-	        try {
-	            rs = sta.executeQuery(query);
-
-	        } catch (Exception err) {
-	        }
-	        return rs;
-	    }
-
-	    public static int executeInsert(Connection conn, String query) throws SQLException {
-	        Statement stm = conn.createStatement();
-	        return stm.executeUpdate(query);
-	    }
+		return conexao;
+	}
+	
+	public void fecharConexao(Connection conexao, PreparedStatement pstm, ResultSet rs){
+		
+		try {
+			if(conexao != null){
+				conexao.close();
+			}
+			if(pstm != null){
+				pstm.close();
+			}
+			if(rs != null){
+				rs.close();
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao fechar conexao com o banco");
+		}
+	}
+	 
 }
